@@ -7,11 +7,13 @@
                <th>Liste de Produits</th>
               </tr>
              </thead>
-              <tbody *ngFor="let produit of produits">
+             @for (produit of produits; track produits) {
+              <tbody >
                        <tr >
                          <td>{{produit}}</td>
                         </tr>
               </tbody>
+            }
       </table>
 </div>
 </div>
