@@ -1,10 +1,9 @@
 export class Produit {
-    idProduit? : number;
-    nomProduit? : string;
-    prixProduit? : number;
-    dateCreation? : Date ;
+  idProduit?: number;
+  nomProduit?: string;
+  prixProduit?: number;
+  dateCreation?: Date;
 }
-  
 
 /*  export interface Produit {
     idProduit? : number;
@@ -12,4 +11,3 @@ export class Produit {
     prixProduit? : number;
     dateCreation? : Date ;
 } */
- 
