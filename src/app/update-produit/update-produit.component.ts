@@ -25,18 +25,22 @@ export class UpdateProduitComponent {
 
   ngOnInit() {
     // this.categories = this.produitService.listeCategories();
-    this.currentProduit = this.produitService.consulterProduit(
-      this.activatedRoute.snapshot.params['id']
-    );
-    this.updatedCatId = this.currentProduit.categorie.idCat;
-    //console.log(this.currentProduit);
+    // this.currentProduit = this.produitService.consulterProduit(
+    //   this.activatedRoute.snapshot.params['id']
+    // );
+    this.produitService
+      .consulterProduit(this.activatedRoute.snapshot.params['id'])
+      .subscribe((prod) => {
+        this.currentProduit = prod;
+      });
   }
 
   updateProduit() {
     // this.currentProduit.categorie = this.produitService.consulterCategorie(
     //   this.updatedCatId
     // );
-    this.produitService.updateProduit(this.currentProduit);
-    this.router.navigate(['produits']);
+    this.produitService.updateProduit(this.currentProduit).subscribe((prod) => {
+      this.router.navigate(['produits']);
+    });
   }
 }

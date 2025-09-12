@@ -29,14 +29,22 @@ export class ProduitsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.produits = this.produitService.listeProduits();
+    //this.produits = this.produitService.listeProduits();
+    this.chargerProduits();
   }
 
+  chargerProduits() {
+    this.produitService.listeProduits().subscribe((prods) => {
+      this.produits = prods;
+    });
+  }
   supprimerProduit(p: Produit) {
-    //console.log(p);
-
     let conf = confirm('Etes-vous sûr ?');
-    if (conf) this.produitService.supprimerProduit(p);
+    if (conf)
+      this.produitService.supprimerProduit(p.idProduit!).subscribe(() => {
+        console.log('produit supprimé');
+        this.chargerProduits();
+      });
   }
 
   listeCategories(): Categorie[] {

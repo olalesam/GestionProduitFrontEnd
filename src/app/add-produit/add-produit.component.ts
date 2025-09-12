@@ -18,7 +18,7 @@ export class AddProduitComponent implements OnInit {
     nomProduit: '',
     prixProduit: 0,
     dateCreation: new Date(),
-    categorie: { idCat: 0, nomCat: '' }, // valeur par défaut
+    //categorie: { idCat: 0, nomCat: '' }, // valeur par défaut
   };
 
   categories!: Categorie[];
@@ -35,12 +35,11 @@ export class AddProduitComponent implements OnInit {
   addProduit() {
     // console.log(this.newProduit);
     // this.newCategorie = this.produitService.consulterCategorie(this.newIdCat);
-    this.newProduit.categorie = this.newCategorie;
-    this.produitService.ajouterProduit(this.newProduit);
-    this.message =
-      'Produit ' + this.newProduit.nomProduit + ' ajouté avec succès !';
+    // this.newProduit.categorie = this.newCategorie;
 
-    // Redirection automatique vers la liste
-    this.router.navigate(['/produits']);
+    this.produitService.ajouterProduit(this.newProduit).subscribe((prod) => {
+      console.log(prod);
+      this.router.navigate(['produits']);
+    });
   }
 }

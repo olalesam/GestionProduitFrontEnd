@@ -5,7 +5,7 @@ export class Produit {
   nomProduit?: string;
   prixProduit?: number;
   dateCreation?: Date;
-  categorie!: Categorie;
+  //categorie!: Categorie;
 }
 
 /*  export interface Produit {
