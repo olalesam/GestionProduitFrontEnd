@@ -3,6 +3,7 @@ import { Produit } from '../model/produit.model';
 import { Categorie } from '../model/categorie.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { apiURL } from '../config';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -14,8 +15,6 @@ export class ProduitService {
   //produits!: Produit[]; //un tableau de Produit
   produit!: Produit;
   // categories: Categorie[];
-
-  apiURL: string = 'http://localhost:8080/produits/api';
 
   constructor(private http: HttpClient) {
     // this.categories = [
@@ -48,29 +47,29 @@ export class ProduitService {
   }
 
   listeProduits(): Observable<Produit[]> {
-    return this.http.get<Produit[]>(this.apiURL);
+    return this.http.get<Produit[]>(apiURL);
   }
 
   ajouterProduit(prod: Produit): Observable<Produit> {
-    return this.http.post<Produit>(this.apiURL, prod, httpOptions);
+    return this.http.post<Produit>(apiURL, prod, httpOptions);
   }
 
   supprimerProduit(id: number) {
-    const url = `${this.apiURL}/${id}`;
+    const url = `${apiURL}/${id}`;
     return this.http.delete(url, httpOptions);
   }
 
   consulterProduit(id: number): Observable<Produit> {
-    const url = `${this.apiURL}/${id}`;
+    const url = `${apiURL}/${id}`;
     return this.http.get<Produit>(url);
   }
 
   updateProduit(prod: Produit): Observable<Produit> {
-    return this.http.put<Produit>(this.apiURL, prod, httpOptions);
+    return this.http.put<Produit>(apiURL, prod, httpOptions);
   }
-  // listeCategories(): Categorie[] {
-  //   return this.categories;
-  // }
+  listeCategories(): Observable<Categorie[]> {
+    return this.http.get<Categorie[]>(apiURL + '/cat');
+  }
 
   // consulterCategorie(id: number): Categorie {
   //   return this.categories.find((cat) => cat.idCat == id)!;
