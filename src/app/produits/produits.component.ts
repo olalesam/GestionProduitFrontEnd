@@ -18,8 +18,8 @@ export class ProduitsComponent implements OnInit {
   produits: Produit[] = []; //un tableau de Produit
   constructor(private produitService: ProduitService) {
     this.categories = [
-      { idCat: 1, nomCat: 'PC' },
-      { idCat: 2, nomCat: 'Imprimante' },
+      { idCat: 2, nomCat: 'Imprimante', descriptionCat: 'non description' }, // id et name respectent l'interface
+      { idCat: 3, nomCat: 'Ordinateur', descriptionCat: 'non description' },
     ];
     /* this.produits = [
       {idProduit : 1,  nomProduit : "PC Asus", prixProduit : 3000.600, dateCreation : new Date("01/14/2011")},

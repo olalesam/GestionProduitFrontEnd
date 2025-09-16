@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Produit } from '../model/produit.model';
-import { Categorie } from '../model/categorie.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { apiURL } from '../config';
+import { Categorie } from '../model/categorie.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -16,62 +16,36 @@ export class ProduitService {
   produit!: Produit;
   // categories: Categorie[];
 
-  constructor(private http: HttpClient) {
-    // this.categories = [
-    //   { idCat: 1, nomCat: 'PC' },
-    //   { idCat: 2, nomCat: 'Imprimante' },
-    // ];
-    // this.produits = [
-    //   {
-    //     idProduit: 1,
-    //     nomProduit: 'PC Asus',
-    //     prixProduit: 3000.6,
-    //     dateCreation: new Date('01/14/2011'),
-    //     categorie: { idCat: 1, nomCat: 'PC' },
-    //   },
-    //   {
-    //     idProduit: 2,
-    //     nomProduit: 'Imprimante Epson',
-    //     prixProduit: 450,
-    //     dateCreation: new Date('12/17/2010'),
-    //     categorie: { idCat: 2, nomCat: 'Imprimante' },
-    //   },
-    //   {
-    //     idProduit: 3,
-    //     nomProduit: 'Tablette Samsung',
-    //     prixProduit: 900.123,
-    //     dateCreation: new Date('02/20/2020'),
-    //     categorie: { idCat: 1, nomCat: 'PC' },
-    //   },
-    // ];
-  }
+  constructor(private http: HttpClient) {}
 
   listeProduits(): Observable<Produit[]> {
-    return this.http.get<Produit[]>(environment.apiURL);
+    return this.http.get<Produit[]>(apiURL);
   }
 
   ajouterProduit(prod: Produit): Observable<Produit> {
-    return this.http.post<Produit>(environment.apiURL, prod, httpOptions);
+    return this.http.post<Produit>(apiURL, prod, httpOptions);
   }
 
   supprimerProduit(id: number) {
-    const url = `${environment.apiURL}/${id}`;
+    const url = `${apiURL}/${id}`;
     return this.http.delete(url, httpOptions);
   }
 
   consulterProduit(id: number): Observable<Produit> {
-    const url = `${environment.apiURL}/${id}`;
+    const url = `${apiURL}/${id}`;
     return this.http.get<Produit>(url);
   }
 
   updateProduit(prod: Produit): Observable<Produit> {
-    return this.http.put<Produit>(environment.apiURL, prod, httpOptions);
-  }
-  listeCategories(): Observable<Categorie[]> {
-    return this.http.get<Categorie[]>(environment.apiURL + '/cat');
+    return this.http.put<Produit>(apiURL, prod, httpOptions);
   }
 
-  // consulterCategorie(id: number): Categorie {
-  //   return this.categories.find((cat) => cat.idCat == id)!;
-  // }
+  listeCategories(): Observable<Categorie[]> {
+    return this.http.get<Categorie[]>(`${apiURL}/cat`);
+  }
+
+  rechercherParCategorie(idCat: number): Observable<Produit[]> {
+    const url = `${apiURL}/prodscat/${idCat}`;
+    return this.http.get<Produit[]>(url);
+  }
 }

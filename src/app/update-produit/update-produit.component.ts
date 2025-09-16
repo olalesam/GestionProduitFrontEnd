@@ -25,8 +25,9 @@ export class UpdateProduitComponent {
 
   ngOnInit() {
     this.produitService.listeCategories().subscribe((cats) => {
+      // Extraire le tableau des catégories depuis cats._embedded.categories
       this.categories = cats;
-      console.log(cats);
+      console.log(this.categories); // Vérifier que les données sont bien extraites
     });
 
     this.produitService
