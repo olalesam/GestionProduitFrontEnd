@@ -3,10 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Produit } from '../model/produit.model';
 import { ProduitService } from '../services/produit.service';
+import { SearchFilterPipe } from '../search-filter.pipe';
 
 @Component({
   selector: 'app-recherche-par-nom',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, SearchFilterPipe],
   templateUrl: './recherche-par-nom.component.html',
   styles: ``,
 })
@@ -21,8 +22,7 @@ export class RechercheParNomComponent implements OnInit {
   ngOnInit(): void {
     this.produitService.listeProduits().subscribe((prods) => {
       console.log(prods);
-      this.allProduits = prods;
-      this.produits = prods; // <— important
+      this.produits = prods;
     });
   }
 
