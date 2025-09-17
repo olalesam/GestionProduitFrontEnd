@@ -13,13 +13,16 @@ import { ProduitService } from '../services/produit.service';
 export class RechercheParNomComponent implements OnInit {
   produits: Produit[] = [];
   nomProduit!: string;
+  allProduits!: Produit[];
+  searchTerm!: string;
 
   constructor(private produitService: ProduitService) {}
 
   ngOnInit(): void {
     this.produitService.listeProduits().subscribe((prods) => {
       console.log(prods);
-      this.produits = prods;
+      this.allProduits = prods;
+      this.produits = prods; // <— important
     });
   }
 
@@ -37,5 +40,19 @@ export class RechercheParNomComponent implements OnInit {
         console.log(prods);
         this.produits = prods;
       });
+  }
+
+  onKeyUp(filterText: string) {
+    const q = (filterText ?? '').toLowerCase();
+
+    // si champ vide => tout afficher
+    if (!q) {
+      this.produits = [...(this.allProduits ?? [])];
+      return;
+    }
+
+    this.produits = (this.allProduits ?? []).filter((item) =>
+      (item.nomProduit ?? '').toLowerCase().includes(q)
+    );
   }
 }
