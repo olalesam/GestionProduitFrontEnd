@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Produit } from '../model/produit.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { apiURL } from '../config';
+import { apiURL, apiURLCat } from '../config';
 import { Categorie } from '../model/categorie.model';
 
 const httpOptions = {
@@ -52,5 +52,12 @@ export class ProduitService {
   rechercherParNom(nom: string): Observable<Produit[]> {
     const url = `${apiURL}/prodsByName/${nom}`;
     return this.http.get<Produit[]>(url);
+  }
+
+  ajouterCategorie(cat: Categorie): Observable<Categorie> {
+    return this.http.post<Categorie>(apiURLCat, cat, httpOptions);
+  }
+  updateCategorie(cat: Categorie): Observable<Categorie> {
+    return this.http.put<Categorie>(apiURLCat, cat, httpOptions);
   }
 }
