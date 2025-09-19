@@ -21,6 +21,12 @@
             <td>{{ produit.prixProduit }}</td>
             <td>{{ produit.dateCreation | date : "dd/MM/yyyy" }}</td>
             <td>{{ produit.categorie?.nomCat }}</td>
+            @if(authService.isAdmin()) {
+            <td>
+              <a class="btn btn-danger" (click)="supprimerProduit(produit)"
+                >Supprimer</a
+              >
+            </td>
             <td>
               <a
                 class="btn btn-success"
@@ -28,12 +34,7 @@
                 >Modifier</a
               >
             </td>
-
-            <td>
-              <a class="btn btn-danger" (click)="supprimerProduit(produit)"
-                >Supprimer</a
-              >
-            </td>
+            }
           </tr>
         </tbody>
         @if(last) {

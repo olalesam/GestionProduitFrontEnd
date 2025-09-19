@@ -4,6 +4,7 @@ import { Produit } from '../model/produit.model';
 import { ProduitService } from '../services/produit.service';
 import { RouterLink } from '@angular/router';
 import { Categorie } from '../model/categorie.model';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-produits',
@@ -16,16 +17,14 @@ import { Categorie } from '../model/categorie.model';
 export class ProduitsComponent implements OnInit {
   categories: Categorie[];
   produits: Produit[] = []; //un tableau de Produit
-  constructor(private produitService: ProduitService) {
+  constructor(
+    private produitService: ProduitService,
+    public authService: AuthService
+  ) {
     this.categories = [
       { idCat: 2, nomCat: 'Imprimante', descriptionCat: 'non description' }, // id et name respectent l'interface
       { idCat: 3, nomCat: 'Ordinateur', descriptionCat: 'non description' },
     ];
-    /* this.produits = [
-      {idProduit : 1,  nomProduit : "PC Asus", prixProduit : 3000.600, dateCreation : new Date("01/14/2011")},
-      {idProduit : 2,  nomProduit : "Imprimante Epson", prixProduit : 450, dateCreation : new Date("12/17/2010")},
-      {idProduit : 3,  nomProduit :"Tablette Samsung", prixProduit : 900.123, dateCreation : new Date("02/20/2020")}
-            ];  */
   }
 
   ngOnInit(): void {
